@@ -18,6 +18,10 @@
 
 package com.generic;
 
+import java.util.List;
+
+import javax.xml.xpath.XPath;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,5 +51,17 @@ public class MasterPageFactory {
 	private WebElement userNumber;
 	@FindBy(xpath = "//*[@id = 'currentAddress']")
 	private WebElement userAddress;
+	@FindBy(xpath = "//input[@id = 'dateOfBirthInput']")
+	private WebElement userDOB;
+	@FindBy(xpath = "//*[@id = 'subjectsInput']")
+	private WebElement subjects;
+	@FindBy(xpath =  "//*[@id='uploadPicture']")
+	private WebElement upload;
+	@FindBy(xpath = "//*[@id = 'react-select-3-input']")
+	private WebElement state;
+	@FindBy(xpath = "//*[@id = 'react-select-4-input']")
+	private WebElement city;
+	@FindBy(xpath = "//*[@type = 'submit']")
+	private WebElement submit;
 
 }

@@ -17,11 +17,17 @@
  */
 package com.smoke.practice;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
+
+import com.generic.BaseConfig;
+import com.generic.CrossBrowserCheck;
 import com.generic.MasterPageFactory;
-import com.util.BaseConfig;
+import com.util.DatePicker;
 import com.util.HighLighter;
 import com.util.RadioButton;
 
@@ -35,7 +41,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class SmokeTest {
 	
 	@Test 
-	public void testNG() throws Exception
+	public void testNG() throws FileNotFoundException, IOException, InterruptedException
 	{
 		
 		/*
@@ -43,8 +49,9 @@ public class SmokeTest {
 		 * BaseLogin obj = new BaseLogin(); obj.baselogin();
 		 * 
 		 */
+		
 		WebDriverManager.chromedriver().setup();
-		WebDriver driver = new ChromeDriver();
+		WebDriver driver = CrossBrowserCheck.browserCheck("chrome");
 		MasterPageFactory MPF = new MasterPageFactory(driver);
 		BaseConfig BC = new BaseConfig();
 		driver.get(BC.getValue("url"));
@@ -62,9 +69,23 @@ public class SmokeTest {
 		MPF.getUserNumber().sendKeys(BC.getValue("userNumber"));
 		highLighter.getColor(driver, MPF.getUserNumber());
 		//MPF.getUserGender().sendKeys(BC.getValue("gender"));
+		MPF.getUserDOB().sendKeys(BC.getValue("DOB"));
+		//Thread.sleep(5);
+		DatePicker.datePicker(driver);
+		MPF.getSubjects().sendKeys(BC.getValue("subjects"));
+		MPF.getSubjects().sendKeys(Keys.ENTER);
 		MPF.getUserAddress().sendKeys(BC.getValue("address"));
 		RadioButton.radioButton(driver, BC.getValue("gender"));
 		RadioButton.checkButton(driver, BC.getValue("hobby"));
+		MPF.getUpload().sendKeys(System.getProperty("user.dir")+
+				System.getProperty("file.separator")+BC.getValue("picture"));
+		MPF.getState().sendKeys(Keys.ARROW_DOWN);
+		MPF.getState().sendKeys(BC.getValue("state"));
+		MPF.getState().sendKeys(Keys.TAB);
+		MPF.getCity().sendKeys(Keys.ARROW_DOWN);
+		MPF.getCity().sendKeys(BC.getValue("city"));
+		MPF.getCity().sendKeys(Keys.TAB);
+		MPF.getSubmit().submit();
 		
 	}
 

@@ -16,25 +16,23 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-package com.generic;
+package com.cucumber.runner;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
 
-public class BaseConfig {
-	
-	private FileInputStream fis;
-	
-	public String getValue(String value) throws FileNotFoundException,IOException,NumberFormatException
-	{
-		fis = new FileInputStream("./config.properties");
-		Properties prop = new Properties();
-		prop.load(fis);
-		//System.out.println(prop.get(value));
+@CucumberOptions(
+		  plugin = {
+					"html:target/report/cucumber.html",
+					"json:target/cucumber.json"
+				 },
+		features = {"src/test/resources/cucumberCheck.feature"},
+			glue = {"com.cucumber.stepdefs"}
 		
-		return prop.get(value).toString();
-	}
+				)
+	
+				
+
+public class Runner extends AbstractTestNGCucumberTests {
 
 }

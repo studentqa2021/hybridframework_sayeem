@@ -18,16 +18,18 @@
 
 package com.util;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class DatePicker {
 	
 	
 	
-	public static void datePicker(WebDriver driver,WebElement element)
+	public static void datePicker(WebDriver driver)
 	{
-		
+		 String monthYearVal =
+		 driver.findElement(By.className("react-datepicker")).getText();
+		 System.out.println(monthYearVal);
 	}
 
 }
